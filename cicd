@@ -1,0 +1,40 @@
+pipeline{
+    agent any
+    stages{
+        stage("check out"){
+            steps{
+                cleanWs()
+                sh "git clone https://github.com/boddudevops/myjavaappteja "
+
+            }
+        }
+        stage("build code"){
+            steps{
+                script{
+                    sh """
+                    ls -lrt
+                    cd myjavaappteja
+                    mvn install
+                    """
+                }
+            }
+        }
+        stage("Run Unit Test"){
+            steps{
+
+                script{
+                    sh """
+                    cd myjavaappteja
+                    mvn test
+                    """
+                }
+            }
+        }
+        stage("code analysis"){
+            steps{
+                echo "my java project"
+            }
+        }
+        stage
+    }
+}
